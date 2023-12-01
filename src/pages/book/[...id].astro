@@ -1,0 +1,145 @@
+---
+import { books } from '../../books';
+import Layout from '../../layouts/Layout.astro';
+
+export async function getStaticPaths() {
+  return books.map((book) => ({ params: { id: book.id } }));
+}
+
+const { id } = Astro.params;
+
+const book = books.find((book) => book.id == id);
+const bookIndex = books.findIndex((book) => book.id == id);
+const bookNumber = book?.id.toString().padStart(2, '0');
+
+const prevBook = books[bookIndex - 1];
+const nextBook = books[bookIndex + 1];
+---
+
+<Layout title='Astro + View Transitions Book Recommendation'>
+  <div class='p-5'>
+    <button
+      type='button'
+      class='text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center me-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'
+    >
+      <a href='/'>
+        <svg
+          fill='#000000'
+          height='40px'
+          width='40px'
+          version='1.1'
+          id='Capa_1'
+          xmlns='http://www.w3.org/2000/svg'
+          xmlns:xlink='http://www.w3.org/1999/xlink'
+          viewBox='0 0 490 490'
+          xml:space='preserve'
+        >
+          <g>
+            <path
+              d='M245,0C109.7,0,0,109.7,0,245s109.7,245,245,245s245-109.7,245-245S380.3,0,245,0z M308.2,335.5l-42.7,42.7L175,287.7
+       L132.3,245l42.7-42.7l90.5-90.5l42.7,42.7L217.8,245L308.2,335.5z'
+            ></path>
+          </g>
+        </svg>
+      </a>
+    </button>
+  </div>
+  <div class='grid grid-cols-3 gap-10 px-24'>
+    <div class='col-span-1'>
+      <div class='bg-gray-200 p-4'>
+        <ul class='list-inline'>
+          <li class='book'>
+            <img src={book?.url} />
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class='col-span-2'>
+      <div class='bg-gray-300 p-4'>
+        <h3 class='font-bold text-3xl pb-2'>{book?.title}</h3>
+        <p class='text-lg'>{book?.description}</p>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .book::after,
+  .book::before,
+  .book img,
+  .book {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+  }
+
+  ul {
+    display: table-cell;
+    vertical-align: middle;
+  }
+
+  .list-inline {
+    padding-left: 0;
+    list-style: none;
+  }
+  .list-inline > li {
+    display: inline-block;
+    margin-left: 2em;
+  }
+  .list-inline > li:first-child {
+    margin-left: 0;
+  }
+
+  .book {
+    cursor: pointer;
+    display: block;
+    width: 25rem;
+    height: 35rem;
+    position: relative;
+    background: white;
+    z-index: 1;
+    box-shadow:
+      0 2px 4px 0 rgba(0, 0, 0, 0.1),
+      0 9px 20px 0 rgba(105, 87, 87, 0.25);
+    overflow: hidden;
+    transition: box-shadow 0.3s linear;
+  }
+
+  .book img {
+    width: inherit;
+    height: inherit;
+    transform-origin: 0 50%;
+    transform: rotateY(0);
+    transition: all 0.45s ease;
+  }
+
+  .book:hover {
+    box-shadow:
+      0 2px 4px 0 rgba(0, 0, 0, 0.25),
+      0 9px 20px 0 rgba(0, 0, 0, 0.45);
+  }
+  .book:hover img {
+    transform: rotateY(-25deg);
+    box-shadow: 1px 1px 5px 5px rgba(0, 0, 0, 0.2);
+  }
+
+  .book::after,
+  .book::before {
+    content: '';
+    display: block;
+    width: inherit;
+    height: inherit;
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    background: white;
+    border: 1px solid #d9d9d9;
+  }
+
+  .book::before {
+    left: -3px;
+  }
+
+  .book::after {
+    left: -6px;
+  }
+</style>
