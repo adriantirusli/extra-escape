@@ -5,22 +5,16 @@ import Card from '../components/Card.astro';
 import { books } from '../books';
 ---
 
-<Layout title='Book Recommendation 2023'>
-  <main class='mx-auto p-4 lg:p-8'>
+<Layout title='Self Help Book Recommendation'>
+  <main class='mx-auto p-4 lg:p-10'>
     <div>
-      <h1 class='pb-12 font-bold text-center text-3xl lg:text-5xl'>
-        The Unforgettable Reads of 2023
+      <h1 class='pb-12 font-bold text-center text-3xl lg:text-5xl lg:pb-20'>
+        Recommending Books for Self-Discovery
       </h1>
       <div
-        class='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-14 lg:px-48'
+        class='grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-14 lg:px-40'
       >
-        {
-          books.map((book, index) => (
-            <div class='transition-transform transform hover:scale-105'>
-              <Card book={book} bookIndex={index} />
-            </div>
-          ))
-        }
+        {books.map((book, index) => <Card book={book} bookIndex={index} />)}
       </div>
     </div>
   </main>

@@ -1,5 +1,6 @@
 ---
 import type { Book } from '../books';
+import CustomButton from './CustomButton.astro';
 
 interface Props {
   book: Book;
@@ -9,16 +10,20 @@ interface Props {
 const { book, bookIndex } = Astro.props;
 ---
 
-<div
-  class='max-w-sm rounded overflow-hidden h-full shadow-[0_2.8px_2.2px_rgba(0,_0,_0,_0.034),_0_6.7px_5.3px_rgba(0,_0,_0,_0.048),_0_12.5px_10px_rgba(0,_0,_0,_0.06),_0_22.3px_17.9px_rgba(0,_0,_0,_0.072),_0_41.8px_33.4px_rgba(0,_0,_0,_0.086),_0_100px_80px_rgba(0,_0,_0,_0.12)]'
->
-  <a href={`/book/${book.id}`}>
-    <img
-      class='object-fill w-full h-full'
-      src={book.url}
-      alt={book.title}
-      loading={bookIndex && bookIndex > 8 ? 'lazy' : 'eager'}
-      fetchpriority={bookIndex && bookIndex <= 4 ? 'high' : 'auto'}
-    />
-  </a>
+<div class='flex flex-col justify-center items-center bg-white p-10 rounded'>
+  <div class='h-30'>
+    <div
+      class='max-w-sm overflow-hidden transition-transform transform hover:scale-105 shadow-md'
+    >
+      <img
+        class='object-fill w-32'
+        src={book.url}
+        alt={book.title}
+        loading={bookIndex && bookIndex > 8 ? 'lazy' : 'eager'}
+        fetchpriority={bookIndex && bookIndex <= 4 ? 'high' : 'auto'}
+      />
+    </div>
+  </div>
+  <p class='text-lg text-center py-5'>{book.title}</p>
+  <CustomButton title='See Detail' link={`/book/${book?.id}`} />
 </div>

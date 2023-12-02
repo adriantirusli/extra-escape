@@ -1,0 +1,19 @@
+---
+import type { Book } from '../books';
+
+interface Props {
+  title: string;
+  link?: string;
+  blank?: boolean;
+}
+
+const { title, link, blank } = Astro.props;
+---
+
+<a href={link} target={blank ? '_blank' : '_self'}>
+  <button
+    class='bg-yellow hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full'
+  >
+    {title}
+  </button>
+</a>
