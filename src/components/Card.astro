@@ -21,6 +21,7 @@ const { book, bookIndex } = Astro.props;
         alt={book.title}
         loading={bookIndex && bookIndex > 8 ? 'lazy' : 'eager'}
         fetchpriority={bookIndex && bookIndex <= 4 ? 'high' : 'auto'}
+        transition:name={`book-${book?.id}`}
       />
     </div>
   </div>

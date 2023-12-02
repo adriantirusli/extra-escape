@@ -46,7 +46,7 @@ const book = books.find((book) => book.id == id);
     <div class='mb-4 sm:mb-0 bg-gray-200 p-4 flex flex-col justify-center'>
       <div class='flex justify-center'>
         <ul class='list-inline'>
-          <li class='book'>
+          <li class='book' transition:name={`book-${book?.id}`}>
             <img
               src={book?.url}
               alt={book?.title}
