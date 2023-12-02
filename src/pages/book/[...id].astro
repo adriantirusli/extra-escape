@@ -10,11 +10,6 @@ export async function getStaticPaths() {
 const { id } = Astro.params;
 
 const book = books.find((book) => book.id == id);
-const bookIndex = books.findIndex((book) => book.id == id);
-const bookNumber = book?.id.toString().padStart(2, '0');
-
-const prevBook = books[bookIndex - 1];
-const nextBook = books[bookIndex + 1];
 ---
 
 <Layout title='Astro + View Transitions Book Recommendation'>
