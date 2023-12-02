@@ -1,5 +1,6 @@
 ---
 import { books } from '../../books';
+import CustomButton from '../../components/CustomButton.astro';
 import Layout from '../../layouts/Layout.astro';
 
 export async function getStaticPaths() {
@@ -24,7 +25,7 @@ const nextBook = books[bookIndex + 1];
     >
       <a href='/'>
         <svg
-          fill='#000000'
+          fill='#463028'
           height='40px'
           width='40px'
           version='1.1'
@@ -44,20 +45,35 @@ const nextBook = books[bookIndex + 1];
       </a>
     </button>
   </div>
-  <div class='grid grid-cols-3 gap-10 px-24'>
-    <div class='col-span-1'>
-      <div class='bg-gray-200 p-4'>
+  <div
+    class='grid grid-cols-1 lg:grid-cols-2 gap-10 px-4 sm:px-8 md:px-16 lg:px-24'
+  >
+    <div class='mb-4 sm:mb-0 bg-gray-200 p-4 flex flex-col justify-center'>
+      <div class='flex justify-center'>
         <ul class='list-inline'>
           <li class='book'>
-            <img src={book?.url} />
+            <img
+              src={book?.url}
+              alt={book?.title}
+              class='w-full h-full object-cover rounded-md'
+            />
           </li>
         </ul>
       </div>
+      <div class='flex justify-center pt-5'>
+        <CustomButton title='Buy Book' link={book?.buy} blank={true} />
+      </div>
     </div>
-    <div class='col-span-2'>
-      <div class='bg-gray-300 p-4'>
-        <h3 class='font-bold text-3xl pb-2'>{book?.title}</h3>
-        <p class='text-lg'>{book?.description}</p>
+    <div>
+      <div class='bg-gray-300 p-4 pb-10'>
+        <h3
+          class='font-bold text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl pb-2'
+        >
+          {book?.title}
+        </h3>
+        <p class='text-base sm:text-lg md:text-xl lg:text-2xl'>
+          {book?.description}
+        </p>
       </div>
     </div>
   </div>
@@ -92,7 +108,7 @@ const nextBook = books[bookIndex + 1];
   .book {
     cursor: pointer;
     display: block;
-    width: 25rem;
+    width: 100%;
     height: 35rem;
     position: relative;
     background: white;
